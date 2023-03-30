@@ -1,9 +1,12 @@
 const usersDiv = document.querySelector('#users');
 const messageLoading = document.querySelector('#message');
+let total = 0;
 
 async function getUsers() {
   try {
-    const response = await fetch('http://localhost:8000?offset=' + document.querySelectorAll('li.li-list-users').length);
+    // const response = await fetch('http://localhost:8000?offset=' + document.querySelectorAll('li.li-list-users').length);
+    console.log(total);
+    const response = await fetch('http://localhost:8000?offset=' + total);
     return await response.json();
   } catch (error) {
    console.log(error) 
@@ -23,6 +26,13 @@ async function load() {
       messageLoading.style = "display:none";
       return;
     }
+
+    // 0
+    // 0 + 20 = 20
+    // 20 + 20 = 40
+    // 40 + 20 = 60
+
+    total += users.length;
 
     if (!document.querySelector('#ul-list-users')) {
       const ul = document.createElement('ul');
